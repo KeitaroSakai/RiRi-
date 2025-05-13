@@ -1,24 +1,6 @@
+/* style.css */
+/* Tailwind CSSと併用して細かい調整ができます */
+
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-}
-header {
-  background: #222;
-  color: white;
-  padding: 1em;
-}
-nav a {
-  margin: 0 1em;
-  color: white;
-  text-decoration: none;
-}
-section {
-  padding: 2em;
-}
-footer {
-  background: #eee;
-  text-align: center;
-  padding: 1em;
+  scroll-behavior: smooth;
 }

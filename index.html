@@ -2,37 +2,32 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RiRiプロジェクト</title>
+
+  <!-- ✅ Tailwind CSS の CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ カスタムCSS（任意） -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <h1>RiRiプロジェクト</h1>
-    <nav>
-      <a href="#about">概要</a>
-      <a href="#events">イベント</a>
-      <a href="#contact">連絡</a>
-    </nav>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- ✅ サイトのトップヘッダー -->
+  <header class="bg-gradient-to-r from-indigo-500 to-pink-500 text-white p-8 text-center shadow-md">
+    <h1 class="text-4xl font-bold">RiRiプロジェクト</h1>
+    <p class="mt-2 text-lg">文化と表現の交差点へ</p>
   </header>
 
-  <section id="about">
-    <h2>活動紹介</h2>
-    <p>私たちは文化×表現を軸にした大学生プロジェクトです。</p>
-  </section>
+  <!-- ✅ メインコンテンツ -->
+  <main class="p-6 max-w-4xl mx-auto">
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">ようこそ</h2>
+      <p>このページは Tailwind CSS を使って美しくスタイルされています。</p>
+    </section>
+  </main>
 
-  <section id="events">
-    <h2>これまでの活動</h2>
-    <ul>
-      <li>〇〇フェスに参加</li>
-      <li>××ラジオ配信</li>
-    </ul>
-  </section>
-
-  <section id="contact">
-    <h2>お問い合わせ</h2>
-    <p>riri.project@gmail.com</p>
-  </section>
-
-  <footer>© 2025 RiRiプロジェクト</footer>
+  <!-- ✅ カスタムJavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
