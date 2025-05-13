@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>RiRi メンバー当てメモリーゲーム</title>
+  <style>
+    /*＝＝＝＝＝リセット＆ベース＝＝＝＝＝*/
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      width:100%; height:100%;
+      overflow:hidden;
+      background:#1e293b;
+      font-family:'Zen Maru Gothic','sans-serif';
+      color:#f8fafc;
+    }
+
+    /*＝＝＝＝＝ヘッダー＆統計＝＝＝＝＝*/
+    header {
+      text-align:center;
+      padding:1rem;
+      background:linear-gradient(90deg, #334155, #1e3a8a);
+      box-shadow:0 2px 6px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    header h1 { font-size:2rem; }
+    #stats {
+      margin-top:0.5rem;
+      font-size:1rem;
+    }
+    #resetBtn {
+      margin-top:0.5rem;
+      padding:0.5rem 1rem;
+      background:#3b82f6; border:none; border-radius:6px;
+      color:white; font-size:1rem; cursor:pointer;
+      transition:transform .2s;
+    }
+    #resetBtn:active { transform:scale(0.95); }
+
+    /*＝＝＝＝＝ランキング＝＝＝＝＝*/
+    .ranking {
+      position:fixed;
+      top:1rem; right:1rem;
+      background:rgba(30,41,59,0.9);
+      color:#f8fafc;
+      padding:0.75rem 1rem;
+      border-radius:6px;
+      width:200px;
+      font-size:0.9rem;
+      box-shadow:0 2px 8px rgba(0,0,0,0.5);
+      z-index:50;
+    }
+    .ranking.hidden { display:none; }
+    .ranking h2 {
+      font-size:1.1rem;
+      margin-bottom:0.5rem;
+      text-align:center;
+    }
+    .ranking ol {
+      list-style: decimal inside;
+      padding-left:0;
+    }
+    .ranking li {
+      margin-bottom:0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /*＝＝＝＝＝ゲームボード＝＝＝＝＝*/
+    .game-board {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(80px,1fr));
+      gap:12px;
+      width:90vw; max-width:600px;
+      margin:1rem auto;
+      perspective:1000px;
+    }
+
+    /*＝＝＝＝＝カード＝＝＝＝＝*/
+    .card {
+      position:relative;
+      width:100%; height:0; padding-bottom:100%;
+      cursor:pointer;
+    }
+    .card-inner {
+      position:absolute;
+      width:100%; height:100%;
+      transition:transform .5s;
+      transform-style:preserve-3d;
+    }
+    .card.flipped .card-inner {
+      transform:rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position:absolute;
+      width:100%; height:100%;
+      backface-visibility:hidden;
+      border-radius:8px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.3);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .card-front {
+      background:#f1f5f9;
+      color:#1e293b;
+      font-size:2rem;
+    }
+    .card-back {
+      background:#fff;
+      transform:rotateY(180deg);
+      overflow:hidden;
+    }
+    .card-back img {
+      width:100%; height:100%; object-fit:cover;
+    }
+
+    /*＝＝＝＝＝メッセージ＝＝＝＝＝*/
+    #message {
+      text-align:center;
+      margin-top:1rem;
+      font-size:1.2rem;
+      opacity:0;
+      transition:opacity .6s;
+    }
+    #message.show {
+      opacity:1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>RiRi メンバーメモリーゲーム</h1>
+    <div id="stats">
+      Moves: <span id="moves">0</span> /
+      Matches: <span id="matches">0</span> / 9
+    </div>
+    <button id="resetBtn">リセット</button>
+  </header>
+
+  <!-- ランキング表示（初期は hidden） -->
+  <div id="ranking" class="ranking hidden">
+    <h2>ランキング</h2>
+    <ol id="rankingList">
+      <!-- クリア時に埋め込み -->
+    </ol>
+  </div>
+
+  <div class="game-board" id="gameBoard"></div>
+
+  <div id="message">🎉 全ペアをめくりました！おめでとうございます！🎉</div>
+
+  <script>
+  (function(){
+    // 1〜9 の画像ペア
+    const imageCount = 9;
+    const imagePaths = Array.from({length:imageCount}, (_,i)=>`image/${i+1}.jpg`);
+    let cards = imagePaths.concat(imagePaths);
+
+    let firstCard=null, secondCard=null, lock=false;
+    let moves=0, matches=0;
+
+    const board = document.getElementById('gameBoard');
+    const movesEl = document.getElementById('moves');
+    const matchesEl = document.getElementById('matches');
+    const messageEl = document.getElementById('message');
+    const resetBtn = document.getElementById('resetBtn');
+    const rankingDiv = document.getElementById('ranking');
+    const rankingList = document.getElementById('rankingList');
+
+    // ローカルストレージからランキング取得
+    function loadRanking(){
+      const data = localStorage.getItem('ririMemoryRanking');
+      return data ? JSON.parse(data) : [];
+    }
+    function saveRanking(ranks){
+      localStorage.setItem('ririMemoryRanking', JSON.stringify(ranks));
+    }
+
+    // ランキングを表示
+    function renderRanking(){
+      const ranks = loadRanking();
+      rankingList.innerHTML = ranks.length
+        ? ranks.map(r=>`<li>${r.name} — ${r.moves} 手</li>`).join('')
+        : '<li>まだ登録なし</li>';
+    }
+
+    // シャッフル
+    function shuffle(a){
+      for(let i=a.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    // ゲーム初期化
+    function initGame(){
+      board.innerHTML = '';
+      shuffle(cards);
+      firstCard = secondCard = null;
+      lock = false;
+      moves = 0; matches = 0;
+      movesEl.textContent = moves;
+      matchesEl.textContent = matches;
+      messageEl.classList.remove('show');
+      // リセット時にランキングを非表示
+      rankingDiv.classList.add('hidden');
+
+      cards.forEach(path=>{
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.icon = path;
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front">?</div>
+            <div class="card-back"><img src="${path}" alt="member"></div>
+          </div>`;
+        card.addEventListener('click', onCardClick);
+        board.appendChild(card);
+      });
+    }
+
+    // カードクリック処理
+    function onCardClick(e){
+      if(lock) return;
+      const clicked = e.currentTarget;
+      if(clicked === firstCard || clicked.classList.contains('flipped')) return;
+
+      clicked.classList.add('flipped');
+      if(!firstCard){
+        firstCard = clicked;
+      } else {
+        secondCard = clicked;
+        lock = true;
+        moves++;
+        movesEl.textContent = moves;
+        checkMatch();
+      }
+    }
+
+    // マッチ判定
+    function checkMatch(){
+      if(firstCard.dataset.icon === secondCard.dataset.icon){
+        matches++;
+        matchesEl.textContent = matches;
+        resetTurn();
+        if(matches === imageCount){
+          // クリア時：ランキングを入力・表示
+          setTimeout(()=>{
+            const name = prompt('🎉 クリア！お名前を入力してください','名無し');
+            if(name !== null){
+              let ranks = loadRanking();
+              ranks.push({ name: name||'名無し', moves });
+              ranks.sort((a,b)=>a.moves - b.moves);
+              ranks = ranks.slice(0,5);
+              saveRanking(ranks);
+            }
+            renderRanking();
+            rankingDiv.classList.remove('hidden');
+            messageEl.classList.add('show');
+          },500);
+        }
+      } else {
+        setTimeout(()=>{
+          firstCard.classList.remove('flipped');
+          secondCard.classList.remove('flipped');
+          resetTurn();
+        }, 800);
+      }
+    }
+
+    function resetTurn(){
+      [firstCard, secondCard] = [null, null];
+      lock = false;
+    }
+
+    resetBtn.addEventListener('click', initGame);
+    // 初回起動
+    initGame();
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,33 +1,266 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RiRiプロジェクト</title>
 
-  <!-- ✅ Tailwind CSS の CDN -->
+  <!-- ✅ Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- ✅ カスタムCSS（任意） -->
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- ✅ Google Fonts（やさしい丸フォント） -->
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet" />
 
-  <!-- ✅ サイトのトップヘッダー -->
-  <header class="bg-gradient-to-r from-indigo-500 to-pink-500 text-white p-8 text-center shadow-md">
-    <h1 class="text-4xl font-bold">RiRiプロジェクト</h1>
-    <p class="mt-2 text-lg">文化と表現の交差点へ</p>
+  <!-- ✅ ScrollReveal.js for animation -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Zen Maru Gothic', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-blue-50 text-gray-800 font-sans">
+
+  <script>
+  const password = "2000";
+  const userInput = prompt("キーワードを入力してください：ヒント…父親の年収は？万円");
+  if (userInput !== password) {
+    alert("誰だお前は");
+    window.location.href = "https://www.google.com"; // リダイレクト先
+  }
+</script>
+
+<div class="fixed top-2 right-4 z-50 flex flex-col space-y-3 items-end">
+  <!-- Xアイコン -->
+  <a href="https://twitter.com/RiRiproject_act" target="_blank" class="transition-transform duration-300 hover:scale-125 hover:drop-shadow-lg">
+    <img src="image/x.png" alt="X" class="w-10 h-10">
+  </a>
+  <!-- Instagramアイコン -->
+  <a href="https://www.instagram.com/ririp_roject" target="_blank" class="transition-transform duration-300 hover:scale-125 hover:drop-shadow-lg">
+    <img src="image/i.png" alt="Instagram" class="w-10 h-10">
+  </a>
+</div>
+
+  <!-- Heroセクション -->
+  <header class="bg-gradient-to-r from-sky-400 to-blue-600 text-white py-6 px-4 shadow-md">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="game.html" target="_blank">
+  <img src="image/ロゴ.jpg" alt="RiRiロゴ" class="w-14 h-14 rounded-full shadow-md hover:scale-110 transition-transform duration-300" />
+</a>
+      <div class="text-center sm:text-left">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-wide">RiRiぷろじぇくと</h1>
+        <p class="text-sm sm:text-base">石川の学生を中心とした演劇プロジェクト</p>
+      </div>
+    </div>
   </header>
 
-  <!-- ✅ メインコンテンツ -->
-  <main class="p-6 max-w-4xl mx-auto">
-    <section>
-      <h2 class="text-2xl font-semibold mb-4">ようこそ</h2>
-      <p>このページは Tailwind CSS を使って美しくスタイルされています。</p>
-    </section>
-  </main>
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md p-4 sticky top-0 z-10">
+    <ul class="flex flex-wrap justify-center gap-4 text-sm font-semibold text-sky-800">
+      <li><a href="#about" class="transition-all hover:scale-125 hover:text-blue-500">プロジェクト</a></li>
+      <li><a href="#activities" class="transition-all hover:scale-110 hover:text-blue-500">活動</a></li>
+      <li><a href="#events" class="transition-all hover:scale-110 hover:text-blue-500">イベント</a></li>
+      <li><a href="#members" class="transition-all hover:scale-110 hover:text-blue-500">メンバー</a></li>
+      <li><a href="#gallery" class="transition-all hover:scale-110 hover:text-blue-500">ギャラリー</a></li>
+      <li><a href="#news" class="transition-all hover:scale-110 hover:text-blue-500">お知らせ</a></li>
+      <li><a href="#join" class="transition-all hover:scale-110 hover:text-blue-500">参加方法</a></li>
+      <li><a href="#contact" class="transition-all hover:scale-110 hover:text-blue-500">連絡</a></li>
+    </ul>
+  </nav>
 
-  <!-- ✅ カスタムJavaScript -->
-  <script src="script.js"></script>
+  <!-- プロジェクト概要 -->
+  <section id="about" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto bg-blue-50 rounded-lg shadow-md" data-sr>
+
+    <h2 class="text-3xl font-bold mb-4 text-blue-700">プロジェクトについて</h2>
+    <p class="text-blue-900">演劇を通じて同世代の仲間とつながり、笑い合える関係を築くことを目的とした学生主催の演劇プロジェクトです。名前の由来は、ポルトガル語で「笑う」、テトゥン語で「関係」を意味する「RiRi」から。「笑い合える関係」を大切にしながら、演劇を作り上げていきます！</p>
+  </section>
+
+  <!-- 活動内容 -->
+  <section id="activities" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto bg-gray-100">
+
+    <h2 class="text-3xl font-bold mb-4">活動内容</h2>
+    <ul class="list-disc list-inside">
+      <li>金沢を中心としたワークショップ開催</li>
+      <li>学生メディア運営(X・Instagram)</li>
+      <li>イベントの企画運営</li>
+    </ul>
+  </section>
+
+  <!-- イベント -->
+  <section id="events" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto">
+
+  <h2 class="text-3xl font-bold mb-4">イベント情報</h2>
+  <p>現在予定されているイベントは以下の通りです：</p>
+  <ul class="mt-2 space-y-2">
+    <li>
+      📅 4月：RiRiぷろじぇくと説明会
+      <span class="text-gray-400">※説明会は既に終了しています。</span>
+    </li>
+    <li>📅 12月：「げきみる」にて公演</li>
+  </ul>
+</section>
+
+  <!-- メンバー紹介 -->
+  <section id="members" class="scroll-mt-24 py-16 bg-white" data-sr>
+
+    <h2 class="text-4xl font-bold text-center text-blue-700 mb-10">メンバー紹介</h2>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4">
+      <!-- 代表 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/1.jpg" alt="あきと" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">わけあきと</h3>
+  <p class="text-sm text-blue-600">代表</p>
+  <p class="mt-2 text-xs text-blue-700">父親の年収は2000万！人生安泰！<br>低レベルな猥談で真価を発揮する！<br>RiRiぷろじぇくとのロゴをクリックすると…？</p>
+</div>
+
+<!-- 副代表 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/2.jpg" alt="さくら" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">ごとうさくら</h3>
+  <p class="text-sm text-blue-600">副代表</p>
+  <p class="mt-2 text-xs text-blue-700">劇団らくだ所属。去年はサークルを率いた首領。大学から演劇をはじめた！透き通る声は100m先にいても聞き取れるぞ。無自覚におもろ発言する。ご飯をにこにこたくさん食べる。さくらって呼ばれてるよ。</p>
+</div>
+
+<!-- 企画 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/3.jpg" alt="ゆい" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">たかぎゆう</h3>
+  <p class="text-sm text-blue-600">副代表</p>
+  <p class="mt-2 text-xs text-blue-700">金沢学院大学演劇部所属。現役の部長だぞ。RiRiぷろでもしっかりマトモ枠。パイナップルが大好きで、Bigboyのサラダバーで無双する。前髪命。お仕事早い。
+UNISON SQUARE GARDENを常に車で流してる。ぎゃるこって呼ばれてるよ。</p>
+</div>
+
+<!-- 広報 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/4.jpg" alt="はる" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">いちかわちづる</h3>
+  <p class="text-sm text-blue-600">制作代表</p>
+  <p class="mt-2 text-xs text-blue-700">劇団らくだ所属。
+RiRiぷるイチのしごでき。全員が頭があがらない。marvelが大好きで、自分で脚本も書いちゃうよ。なんでも相談できちゃう姉御だから相談してみるよいいかも。お酒大好き。
+ちーづって呼ばれてるよ。</p>
+</div>
+
+<!-- 制作 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/5.jpg" alt="こうた" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">もりゆいと</h3>
+  <p class="text-sm text-blue-600">制作代表</p>
+  <p class="mt-2 text-xs text-blue-700">自称、無所属。
+元、劇団らくだのイケメン枠（笑） 一緒にいるとイケメンに見えなくなるぞ。遊びのプロで、常に楽しいことを追い求めている。彼の作り出す世界は面白い。ワンピースとMARVELがだいすき。
+ゆいと！ってよんでね。</p>
+</div>
+
+<!-- 映像 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/6.jpg" alt="みさき" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">おかだけいこ</h3>
+  <p class="text-sm text-blue-600">運営</p>
+  <p class="mt-2 text-xs text-blue-700">劇団らくだ所属。
+らくだでは無職リーダーをしていた。無職を夢見るが、仕事ができるため仕事をふられる。面白えすぎて常に話題が尽きない。お酒も強く、ご飯を幸せそうに食べる。ドラクエ大好
+き。
+けーって呼ばれてるよ。</p>
+</div>
+
+<!-- 音響 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/7.jpg" alt="れん" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">さわあすか</h3>
+  <p class="text-sm text-blue-600">運営</p>
+  <p class="mt-2 text-xs text-blue-700">劇団らくだ所属。
+らくだの優しいお姉さん。しかしそれは仮の姿だ。彼女と話すと森羅万象がゆるやかになる。
+恐ろしい力だ。いつもにこにこしていて空気を温かくしてくれる。金沢演劇界隈で名前が広がっている.......カモオ
+あしゅってよんでね。</p>
+</div>
+
+<!-- 司会 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/8.jpg" alt="りお" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">こまつこうだい</h3>
+  <p class="text-sm text-blue-600">運営</p>
+  <p class="mt-2 text-xs text-blue-700">劇団らくだ・劇団羅針盤所属。
+なんか本当になんでもできる人。出来ないことはない。話し方に特徴があり、みんなが真似できる。まだ若いのにおじいちゃんと自称している。ゲームが好き。写真撮る時キメ顔してく
+る。
+あだ名がたくさんある。</p>
+</div>
+
+<!-- 美術 -->
+<div class="bg-blue-100 rounded-2xl shadow-md p-4 text-center transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+  <img src="image/9.jpg" alt="なお" class="w-24 h-24 mx-auto rounded-full mb-3 border-4 border-white shadow-md">
+  <h3 class="text-lg font-bold text-blue-800">T.J</h3>
+  <p class="text-sm text-blue-600">運営</p>
+  <p class="mt-2 text-xs text-blue-700">無所属。
+本名は明かさない、ネットリテラシーの高さが伺える。いつか知ることができるかも。会話で常にツッコミをしてくれる、シゴデキ万能お兄さん。たまに抱え込んで死にかけてる。美味しいお酒を飲める店を知っている。
+T.Jって呼ばれてるよ。</p>
+</div>
+
+    </div>
+  </section>
+
+  <!-- ギャラリー -->
+  <section id="gallery" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto bg-gray-100">
+  <h2 class="text-3xl font-bold mb-4">ギャラリー</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <img src="image/10.jpg" alt="gallery1" class="rounded shadow transition-transform duration-300 hover:scale-110 hover:shadow-2xl">
+    <img src="image/11.jpg" alt="gallery2" class="rounded shadow transition-transform duration-300 hover:scale-110 hover:shadow-2xl">
+    <img src="image/12.jpg" alt="gallery3" class="rounded shadow transition-transform duration-300 hover:scale-110 hover:shadow-2xl">
+    <img src="image/13.jpg" alt="gallery4" class="rounded shadow transition-transform duration-300 hover:scale-110 hover:shadow-2xl">
+    <img src="image/14.jpg" alt="gallery5" class="rounded shadow transition-transform duration-300 hover:scale-110 hover:shadow-2xl">
+  </div>
+</section>
+
+  <!-- お知らせ -->
+  <section id="news" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto">
+
+    <h2 class="text-3xl font-bold mb-4">お知らせ</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <li>📢 2月：えんげきクロストークに参加しました。</li>
+      <li>📢 2月：RiRiぷろじぇくと代表・和氣明杜が出演する舞台<br>　　　　　　「敬愛なるあなたへ」が上演されました。</li>
+      <li>📢 4月：RiRiぷろじぇくと説明会が行われました。</li>
+      <li>📢 新メンバー求ム！！</li>
+    </ul>
+  </section>
+
+  <!-- 参加方法 -->
+  <section id="join" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto bg-gray-100">
+
+    <h2 class="text-3xl font-bold mb-4">参加方法</h2>
+    <p>RiRiプロジェクトでは新メンバーを随時募集しています！下記フォームよりお申し込みください！</p>
+    <div class="mt-4">
+      <iframe src="ふぉーむはるとこ" width="100%" height="200" frameborder="0"></iframe>
+    </div>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section id="contact" class="scroll-mt-24 py-12 px-6 max-w-4xl mx-auto">
+
+    <h2 class="text-3xl font-bold mb-4">お問い合わせ</h2>
+    <p>ご質問・ご連絡は以下までお願いします：</p>
+    <p class="mt-2">☎ 090-8266-4411</p>
+  </section>
+
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <p>&copy; 2025 RiRiプロジェクト</p>
+  </footer>
+
+<audio autoplay loop hidden>
+  <source src="audio/music.mp3" type="audio/mpeg">
+</audio>
+
+  <script>
+    ScrollReveal().reveal('[data-sr]', {
+      distance: '40px',
+      duration: 1000,
+      easing: 'ease-out',
+      origin: 'bottom',
+      interval: 100,
+    });
+  </script>
+
 </body>
 </html>
